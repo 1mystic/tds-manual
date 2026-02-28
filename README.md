@@ -26,9 +26,15 @@ npm run dev
 
 Visit the output localhost address in your browser to view the interactive documentation.
 
+## Live Access
+**You can access the live site here:  [https://tds-manual.vercel.app/](https://tds-manual.vercel.app/)**
+
 ## Official Resources
 - **Course Portal**: [https://tds.s-anand.net/#/](https://tds.s-anand.net/#/)
 - **Instructor**: Prof. S. Anand - [https://www.s-anand.net/](https://www.s-anand.net/)
 - **Forked From**: [sanand0/tools-in-data-science-public](https://github.com/sanand0/tools-in-data-science-public)
+- **Collaboration Link**: [tds-collab.vercel.app/](https://tds-collab.vercel.app/)
+
+Feel free to contribute your solutions to the [collaboration portal](https://tds-collab.vercel.app/) to help create a structured archive for peer review and shared learning.
 
 > Built with a focus on student-centric design, readability, and modern web aesthetics.
