@@ -103,8 +103,9 @@ export default function Header({ toggleSidebar }) {
         >
           <Menu size={24} />
         </button>
-        <Link to="/" style={{ fontWeight: 700, fontSize: '1.2rem', color: 'var(--text-main)', marginRight: '2rem' }}>
-          Tools in Data Science
+        <Link to="/" className="site-title-link" style={{ fontWeight: 700, fontSize: '1.2rem', color: 'var(--text-main)', marginRight: '2rem', display: 'flex', alignItems: 'center' }}>
+          <span className="title-full">Tools in Data Science</span>
+          <span className="title-short" style={{ display: 'none' }}>TDS</span>
         </Link>
         <div className="header-search-wrapper" style={{ flex: 1, display: 'flex', justifyContent: 'center' }}>
           <div ref={modalRef} className="search-container" style={{ position: 'relative' }}>

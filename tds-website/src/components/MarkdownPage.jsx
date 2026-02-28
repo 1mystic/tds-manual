@@ -61,9 +61,7 @@ export default function MarkdownPage() {
                 return res.text();
             })
             .then(text => {
-                // Fix image paths
-                const imageFixed = text.replace(/\]\((?!http)(.*?)\)/g, '](/docs/$1)');
-                setContent(imageFixed);
+                setContent(text);
             })
             .catch(() => setContent('# 404\nPage not found.'));
     }, [pageId]);
@@ -76,6 +74,13 @@ export default function MarkdownPage() {
         }
     }, [content]);
 
+    const extractText = (children) => {
+        if (typeof children === 'string') return children;
+        if (Array.isArray(children)) return children.map(extractText).join('');
+        if (children && children.props && children.props.children) return extractText(children.props.children);
+        return '';
+    };
+
     return (
         <div className="markdown-body">
             <ReactMarkdown
@@ -83,12 +88,42 @@ export default function MarkdownPage() {
                 rehypePlugins={[rehypeRaw, rehypeHighlight]}
                 components={{
                     h2: ({ node, ...props }) => {
-                        const id = slugify(props.children[0]);
+                        const id = slugify(extractText(props.children));
                         return <h2 id={id} {...props} />;
                     },
                     h3: ({ node, ...props }) => {
-                        const id = slugify(props.children[0]);
+                        const id = slugify(extractText(props.children));
                         return <h3 id={id} {...props} />;
+                    },
+                    img: ({ node, ...props }) => {
+                        let src = props.src;
+                        if (src && !src.startsWith('http') && !src.startsWith('/docs/')) {
+                            src = `/docs/${src}`;
+                        }
+                        return <img {...props} src={src} />;
+                    },
+                    a: ({ node, ...props }) => {
+                        const href = props.href || '';
+                        if (href.startsWith('http')) {
+                            return <a target="_blank" rel="noreferrer" {...props} />;
+                        }
+                        if (href.startsWith('#')) {
+                            return <a {...props} onClick={(e) => {
+                                e.preventDefault();
+                                document.getElementById(href.slice(1))?.scrollIntoView({ behavior: 'smooth' });
+                            }} />;
+                        }
+
+                        // Internal relative markdown links
+                        let target = href.replace('.md', '');
+                        let finalPath = '';
+                        if (target.startsWith('/')) {
+                            finalPath = target;
+                        } else {
+                            const currentDir = pageId ? pageId.split('/').slice(0, -1).join('/') : '';
+                            finalPath = currentDir ? `/${currentDir}/${target}` : `/${target}`;
+                        }
+                        return <Link to={finalPath} {...props} />;
                     }
                 }}
             >

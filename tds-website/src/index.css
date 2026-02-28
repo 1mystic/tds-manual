@@ -494,4 +494,16 @@ header {
   .nav-title {
     font-size: 0.95rem;
   }
+
+  .title-full {
+    display: none !important;
+  }
+
+  .title-short {
+    display: inline-block !important;
+  }
+
+  .site-title-link {
+    margin-right: 1rem !important;
+  }
 }
