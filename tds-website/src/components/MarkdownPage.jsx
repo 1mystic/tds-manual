@@ -18,7 +18,8 @@ const slugify = (str) =>
         .replace(/-+/g, '-');
 
 export default function MarkdownPage() {
-    const { pageId } = useParams();
+    const params = useParams();
+    const pageId = params['*'];
     const [content, setContent] = useState('Loading...');
 
     useEffect(() => {

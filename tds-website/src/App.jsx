@@ -9,7 +9,7 @@ function App() {
         <Route path="/" element={<Layout />}>
           {/* using HashRouter for easy github pages deploy without server routing config */}
           <Route index element={<MarkdownPage />} />
-          <Route path=":pageId" element={<MarkdownPage />} />
+          <Route path="*" element={<MarkdownPage />} />
         </Route>
       </Routes>
     </HashRouter>
