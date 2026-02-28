@@ -10,7 +10,7 @@ export default function SidebarLeft() {
             .then(text => {
                 const lines = text.split('\n');
                 const items = [];
-                let currentSection = { title: 'Tools in Data Science', links: [] };
+                let currentSection = null;
 
                 lines.forEach(line => {
                     if (!line.trim()) return;
@@ -18,7 +18,7 @@ export default function SidebarLeft() {
                     // Match main sections: - [Title](link.md)
                     const mainMatch = line.match(/^- \[(.*?)\]\((.*?)\)/);
                     if (mainMatch) {
-                        if (currentSection.links.length > 0 || currentSection.title) {
+                        if (currentSection) {
                             items.push(currentSection);
                         }
                         const linkTarget = mainMatch[2] === 'README.md' ? '/' : `/${mainMatch[2].replace('.md', '')}`;
@@ -30,7 +30,7 @@ export default function SidebarLeft() {
                     } else {
                         // Match sub sections:   - [Title](link.md)
                         const subMatch = line.match(/^  - \[(.*?)\]\((.*?)\)/);
-                        if (subMatch) {
+                        if (subMatch && currentSection) {
                             const linkTarget = `/${subMatch[2].replace('.md', '')}`;
                             currentSection.links.push({
                                 title: subMatch[1],
@@ -39,7 +39,7 @@ export default function SidebarLeft() {
                         }
                     }
                 });
-                if (currentSection.title) items.push(currentSection);
+                if (currentSection) items.push(currentSection);
                 setNavItems(items);
             });
     }, []);

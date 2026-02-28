@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import rehypeHighlight from 'rehype-highlight';
@@ -21,9 +21,39 @@ export default function MarkdownPage() {
     const params = useParams();
     const pageId = params['*'];
     const [content, setContent] = useState('Loading...');
+    const [nav, setNav] = useState({ prev: null, next: null });
 
     useEffect(() => {
         const pageIdBase = pageId ? pageId.split('#')[0] : '';
+        const currentPath = pageIdBase ? `/${pageIdBase}` : '/';
+
+        // Fetch sidebar navigation array
+        fetch('/docs/_sidebar.md')
+            .then(res => res.text())
+            .then(text => {
+                const lines = text.split('\n');
+                const links = [];
+                lines.forEach(line => {
+                    const match = line.match(/\[(.*?)\]\((.*?)\)/);
+                    if (match && !match[2].startsWith('http')) {
+                        let linkTarget = match[2].split('#')[0].replace('.md', '');
+                        if (linkTarget === 'README') linkTarget = '';
+                        links.push({ title: match[1], path: `/${linkTarget}` });
+                    }
+                });
+
+                const currentIndex = links.findIndex(l => l.path === currentPath);
+                if (currentIndex >= 0) {
+                    setNav({
+                        prev: currentIndex > 0 ? links[currentIndex - 1] : null,
+                        next: currentIndex < links.length - 1 ? links[currentIndex + 1] : null
+                    });
+                } else {
+                    setNav({ prev: null, next: null });
+                }
+            })
+            .catch(err => console.error(err));
+
         const filename = pageIdBase ? `${pageIdBase}.md` : 'README.md';
         fetch(`/docs/${filename}`)
             .then(res => {
@@ -64,6 +94,22 @@ export default function MarkdownPage() {
             >
                 {content}
             </ReactMarkdown>
+
+            <div className="page-navigation">
+                {nav.prev ? (
+                    <Link to={nav.prev.path} className="nav-btn prev">
+                        &larr; Previous<br />
+                        <span className="nav-title">{nav.prev.title}</span>
+                    </Link>
+                ) : <div className="nav-spacer"></div>}
+
+                {nav.next ? (
+                    <Link to={nav.next.path} className="nav-btn next">
+                        Next &rarr;<br />
+                        <span className="nav-title">{nav.next.title}</span>
+                    </Link>
+                ) : <div className="nav-spacer"></div>}
+            </div>
         </div>
     );
 }

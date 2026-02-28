@@ -50,6 +50,25 @@ body {
   overflow-x: hidden;
 }
 
+/* Custom Minimalist Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg-color);
+}
+
+::-webkit-scrollbar-thumb {
+  background: #444;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #666;
+}
+
 a {
   color: var(--accent-color);
   text-decoration: none;
@@ -59,6 +78,52 @@ a {
 a:hover {
   text-decoration: underline;
   color: var(--accent-hover);
+}
+
+/* Page Navigation Footer */
+.page-navigation {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 4rem;
+  padding-top: 2rem;
+  border-top: 1px solid var(--border-color);
+}
+
+.nav-btn {
+  display: inline-block;
+  padding: 1rem 1.5rem;
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  color: var(--text-muted);
+  text-decoration: none;
+  transition: all 0.2s;
+  max-width: 45%;
+}
+
+.nav-btn:hover {
+  border-color: var(--accent-color);
+  background-color: rgba(255, 209, 102, 0.05);
+  text-decoration: none;
+}
+
+.nav-btn.prev {
+  text-align: left;
+}
+
+.nav-btn.next {
+  text-align: right;
+}
+
+.nav-title {
+  display: block;
+  font-size: 1.1rem;
+  color: var(--accent-color);
+  font-weight: 600;
+  margin-top: 0.3rem;
+}
+
+.nav-spacer {
+  width: 45%;
 }
 
 /* Layout container */
