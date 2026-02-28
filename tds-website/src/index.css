@@ -407,3 +407,91 @@ header {
 .toc-link.level-3 {
   padding-left: 1rem;
 }
+
+/* Mobile Responsiveness styling */
+.mobile-menu-btn {
+  background: transparent;
+  border: none;
+  color: var(--text-main);
+  margin-right: 1rem;
+  cursor: pointer;
+  display: none !important;
+}
+
+@media (max-width: 1024px) {
+  .toc-sidebar {
+    display: none;
+  }
+}
+
+@media (max-width: 800px) {
+  .mobile-menu-btn {
+    display: block !important;
+  }
+
+  .sidebar {
+    position: fixed;
+    top: var(--header-h);
+    left: -100%;
+    margin-left: 0;
+    height: calc(100vh - var(--header-h));
+    z-index: 200;
+    transition: left 0.3s ease;
+    box-shadow: 2px 0 10px rgba(0, 0, 0, 0.5);
+    background-color: var(--bg-secondary);
+    border-right: none;
+  }
+
+  .sidebar.open {
+    left: 0;
+  }
+
+  .mobile-overlay {
+    position: fixed;
+    top: var(--header-h);
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.6);
+    z-index: 150;
+    backdrop-filter: blur(2px);
+  }
+
+  .content-area {
+    padding: 2rem 1.5rem;
+  }
+
+  /* Shrink search on mobile */
+  .search-container {
+    width: 200px !important;
+  }
+}
+
+@media (max-width: 500px) {
+  header {
+    padding: 0 1rem;
+  }
+
+  .header-actions {
+    display: none !important;
+    /* Hide community/github links to make room for title and search on very small screens */
+  }
+
+  /* Even smaller search */
+  .search-container {
+    width: 160px !important;
+  }
+
+  .content-area {
+    padding: 1.5rem 1rem;
+  }
+
+  .nav-btn {
+    max-width: 48%;
+    padding: 0.8rem 1rem;
+  }
+
+  .nav-title {
+    font-size: 0.95rem;
+  }
+}

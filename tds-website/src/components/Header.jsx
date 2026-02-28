@@ -1,8 +1,8 @@
 import { useState, useEffect, useRef } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { Search } from 'lucide-react';
+import { Search, Menu } from 'lucide-react';
 
-export default function Header() {
+export default function Header({ toggleSidebar }) {
   const [searchQuery, setSearchQuery] = useState('');
   const [isOpen, setIsOpen] = useState(false);
   const [searchIndex, setSearchIndex] = useState([]);
@@ -97,11 +97,17 @@ export default function Header() {
   return (
     <header>
       <div style={{ display: 'flex', alignItems: 'center', width: '100%' }}>
+        <button
+          className="mobile-menu-btn"
+          onClick={toggleSidebar}
+        >
+          <Menu size={24} />
+        </button>
         <Link to="/" style={{ fontWeight: 700, fontSize: '1.2rem', color: 'var(--text-main)', marginRight: '2rem' }}>
-          Overview
+          Tools in Data Science
         </Link>
-        <div style={{ flex: 1, display: 'flex', justifyContent: 'center' }}>
-          <div ref={modalRef} style={{ position: 'relative' }}>
+        <div className="header-search-wrapper" style={{ flex: 1, display: 'flex', justifyContent: 'center' }}>
+          <div ref={modalRef} className="search-container" style={{ position: 'relative' }}>
             <div style={{
               background: 'var(--bg-color)',
               padding: '0.5rem 1rem',
@@ -175,7 +181,7 @@ export default function Header() {
             )}
           </div>
         </div>
-        <div style={{ display: 'flex', gap: '1.5rem' }}>
+        <div className="header-actions" style={{ display: 'flex', gap: '1.5rem' }}>
           <a href="https://discourse.onlinedegree.iitm.ac.in/c/courses/tds-kb/34" target="_blank" rel="noreferrer" style={{ color: 'var(--text-main)', fontSize: '0.9rem', fontWeight: 500 }}>Community</a>
           <a href="https://github.com/sanand0/tools-in-data-science-public" target="_blank" rel="noreferrer" style={{ color: 'var(--text-main)', fontSize: '0.9rem', fontWeight: 500 }}>GitHub</a>
         </div>
