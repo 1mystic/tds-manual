@@ -109,18 +109,18 @@ export default function Header({ toggleSidebar }) {
         </Link>
         <div className="header-search-wrapper" style={{ flex: 1, display: 'flex', justifyContent: 'center' }}>
           <div ref={modalRef} className="search-container" style={{ position: 'relative' }}>
-            <div style={{
+            <div className="search-input-wrapper" style={{
               background: 'var(--bg-color)',
               padding: '0.5rem 1rem',
               borderRadius: '20px',
               display: 'flex',
               alignItems: 'center',
-              width: '400px',
+              width: '100%',
               border: '1px solid var(--border-color)',
               boxShadow: isOpen ? '0 0 0 2px var(--accent-color)' : 'none',
               transition: 'box-shadow 0.2s'
             }}>
-              <Search size={16} color="var(--text-muted)" style={{ marginRight: '8px' }} />
+              <Search size={16} color="var(--text-muted)" style={{ marginRight: '8px', minWidth: '16px' }} />
               <input
                 type="text"
                 placeholder="Search documentation..."

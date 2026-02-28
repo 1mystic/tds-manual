@@ -145,6 +145,11 @@ header {
   z-index: 100;
 }
 
+.search-container {
+  width: 400px;
+  max-width: 100%;
+}
+
 .layout-main {
   display: flex;
   flex: 1;
@@ -177,6 +182,8 @@ header {
   padding: 3rem 4rem;
   max-width: 1000px;
   margin: 0 auto;
+  min-width: 0;
+  overflow-wrap: break-word;
 }
 
 /* Sidebar Nav styling */
@@ -463,7 +470,11 @@ header {
 
   /* Shrink search on mobile */
   .search-container {
-    width: 200px !important;
+    width: 180px !important;
+  }
+
+  .search-container input {
+    font-size: 0.85rem;
   }
 }
 
@@ -479,7 +490,15 @@ header {
 
   /* Even smaller search */
   .search-container {
-    width: 160px !important;
+    max-width: 130px !important;
+  }
+
+  .search-container input {
+    font-size: 0.75rem;
+  }
+
+  .search-container input::placeholder {
+    color: transparent;
   }
 
   .content-area {
