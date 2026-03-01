@@ -24,6 +24,7 @@ export default function MarkdownPage() {
     const [nav, setNav] = useState({ prev: null, next: null });
 
     useEffect(() => {
+        window.scrollTo(0, 0);
         const pageIdBase = pageId ? pageId.split('#')[0] : '';
         const currentPath = pageIdBase ? `/${pageIdBase}` : '/';
 
