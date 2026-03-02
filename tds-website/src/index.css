@@ -526,3 +526,37 @@ header {
     margin-right: 1rem !important;
   }
 }
+/* Ownership Note */
+.ownership-note {
+  position: fixed;
+  bottom: 0.8rem;
+  right: 0.8rem;
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  z-index: 1000;
+  background: rgba(18, 18, 18, 0.7);
+  padding: 0.3rem 0.6rem;
+  border-radius: 6px;
+  backdrop-filter: blur(8px);
+  border: 1px solid var(--border-color);
+  pointer-events: auto;
+  transition: opacity 0.3s;
+}
+
+.ownership-note a {
+  color: var(--accent-color);
+  font-weight: 500;
+}
+
+.ownership-note:hover {
+  background: rgba(18, 18, 18, 0.9);
+}
+
+@media (max-width: 800px) {
+  .ownership-note {
+    bottom: 0.5rem;
+    right: 0.5rem;
+    font-size: 0.7rem;
+    padding: 0.2rem 0.5rem;
+  }
+}

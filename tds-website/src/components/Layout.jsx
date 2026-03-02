@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import Header from './Header';
 import SidebarLeft from './SidebarLeft';
 import SidebarRight from './SidebarRight';
+import Footer from './Footer';
 import { Outlet, useLocation } from 'react-router-dom';
 
 export default function Layout() {
@@ -33,6 +34,7 @@ export default function Layout() {
                     <SidebarRight />
                 </div>
             </div>
+            <Footer />
         </>
     );
 }
